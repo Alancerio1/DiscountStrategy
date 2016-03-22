@@ -14,7 +14,10 @@ public class LineItem {
     private Product product;
     private final ReceiptDataAccessStrategy db;
 
-    public LineItem(ReceiptDataAccessStrategy db,int quantity, String prodId) {
+    public LineItem(ReceiptDataAccessStrategy db,int quantity, String prodId) throws IllegalArgumentException{
+        if(db == null || quantity == 0 || prodId == null || prodId.isEmpty()){
+            throw new IllegalArgumentException();
+        }
         this.db = db;
         setQuantity(quantity);
         this.product = db.findProduct(prodId);
@@ -45,7 +48,10 @@ public class LineItem {
         return quantity;
     }
 
-    public final void setQuantity(int quantity) {
+    public final void setQuantity(int quantity) throws IllegalArgumentException {
+        if(quantity == 0){
+            throw new IllegalArgumentException();
+        }
         this.quantity = quantity;
     }
 
@@ -53,7 +59,10 @@ public class LineItem {
         return product;
     }
 
-    public final void setProduct(Product product) {
+    public final void setProduct(Product product) throws IllegalArgumentException{
+        if(product == null){
+            throw new IllegalArgumentException();
+        }
         this.product = product;
     }
    
